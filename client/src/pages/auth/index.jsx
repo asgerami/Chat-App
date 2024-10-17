@@ -4,15 +4,34 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { useState } from "react";
+import { toast } from "sonner";
+import { Flashlight } from "lucide-react";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const validateSignup = () => {
+    if (!email.length) {
+      toast.error
+      ("Email is Required.");
+      return false;
+    }
+    if(!password.length) {
+      toast.error("Password is Required.")
+    }
+    toast 
+       return true;
+  };
+
   const handleLogin = async () => {};
 
-  const handleSignup = async () => {};
+  const handleSignup = async () => {
+    if(validateSignup()) {
+      alert("done")
+    }
+  };
 
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
@@ -92,9 +111,13 @@ const Auth = () => {
           </div>
         </div>
         <div className="hidden xl:flex justify-center items-center">
-          <img src={Background} alt="background login Image " className="h-[700px"/>
+          <img
+            src={Background}
+            alt="background login Image "
+            className="h-[700px"
+          />
         </div>
-      </div >
+      </div>
     </div>
   );
 };
