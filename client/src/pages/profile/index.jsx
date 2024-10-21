@@ -85,6 +85,21 @@ function Profile() {
       
     }
   };
+  const handleDeleteImage = async (event) => {
+    try{
+      const res = await apiClient.delete(REMOVE_PROFILE_IMAGE_ROUTE, {
+        withCredentials: true,
+      });
+      if(res.status === 200){
+        setUserInfo({...userInfo, image: null});
+        toast.success("Image removed Successfully");
+        setImage(null);
+      }
+    }catch(err){
+      console.log(err);
+    }
+  };
+
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10">
      <div className="flex flex-col gap-10 w-[80vw] md:w-max">
