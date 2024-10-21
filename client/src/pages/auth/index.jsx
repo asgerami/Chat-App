@@ -5,32 +5,42 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Flashlight } from "lucide-react";
+import { apiClient } from "@/lib/api-client";
+import { SIGNUP_ROUTE } from "../../utils/constants";
 
 const Auth = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const validateSignup = () => {
     if (!email.length) {
-      toast.error
-      ("Email is Required.");
+      toast.error("Email is Required.");
       return false;
     }
-    if(!password.length) {
-      toast.error("Password is Required.")
+    if (!password.length) {
+      toast.error("Password is Required.");
+      return false;
     }
-    toast 
-       return true;
+    if (password !== confirmPassword) {
+      toast.error("Password and Confirm Password Should be the same.");
+      return false;
+    }
+    return true;
   };
 
   const handleLogin = async () => {};
 
   const handleSignup = async () => {
-    if(validateSignup()) {
-      alert("done")
-    }
+    if (validateSignup()) {
+      const response = await apiClient.post(
+        SIGNUP_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      console.log({ response });
+    };
   };
 
   return (
